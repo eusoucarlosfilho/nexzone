@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>NexZone — Marketplace de Produtos Digitais</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+<style>
+:root{
+  --orange:#FF6B00;--orange2:#FF9A3C;--soft:#FFF2E8;
+  --grad:linear-gradient(135deg,#FF6B00,#FF9A3C);
+  --grad-d:linear-gradient(135deg,#FF7A14,#FFB05C);
+  --text:#16162A;--sub:#5A5A72;--muted:#9E9EBA;
+  --border:#EFE9E3;--surface:#FFF8F3;--green:#00B87A;--red:#E23B3B;
+  --r:16px;--sh:0 2px 18px rgba(255,107,0,.08);--sh-md:0 14px 44px rgba(255,107,0,.16);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Nunito',sans-serif;background:#fff;color:var(--text);line-height:1.6;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+a{text-decoration:none;color:inherit}
+button{font-family:inherit;cursor:pointer;border:none;outline:none}
+input,select{font-family:inherit;outline:none}
+::-webkit-scrollbar{width:6px;height:6px}::-webkit-scrollbar-thumb{background:#ffd0aa;border-radius:10px}
+.g{background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* TOPBAR */
+.topbar{background:var(--text);color:#fff;text-align:center;font-size:13px;font-weight:700;padding:9px 20px;letter-spacing:.2px;}
+.topbar .g{font-weight:800;}
+
+/* NAV */
+nav{background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:900;}
+.nav-wrap{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:16px;height:70px;}
+.logo{font-family:'Outfit';font-size:25px;font-weight:900;letter-spacing:-1px;flex-shrink:0;}
+.sb{flex:1;max-width:520px;display:flex;align-items:center;background:var(--surface);border:1.5px solid var(--border);border-radius:50px;overflow:hidden;transition:.2s;}
+.sb:focus-within{border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,107,0,.08);background:#fff;}
+.sb i.s{padding-left:18px;color:var(--muted);}
+.sb input{flex:1;background:none;border:none;font-size:14px;padding:12px 14px;color:var(--text);}
+.sb input::placeholder{color:var(--muted);}
+.nav-end{display:flex;gap:9px;align-items:center;flex-shrink:0;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;padding:10px 20px;border-radius:50px;font-family:'Outfit';font-weight:700;font-size:14px;transition:all .2s;}
+.btn-pri{background:var(--grad);color:#fff;}.btn-pri:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(255,107,0,.34);}
+.btn-dark{background:var(--text);color:#fff;}.btn-dark:hover{transform:translateY(-2px);}
+.btn-ghost{background:#fff;color:var(--sub);border:1.5px solid var(--border);}.btn-ghost:hover{border-color:var(--orange);color:var(--orange);}
+.btn-white{background:#fff;color:var(--orange);}.btn-white:hover{transform:translateY(-2px);box-shadow:0 8px 26px rgba(0,0,0,.16);}
+.btn-gw{background:rgba(255,255,255,.16);border:1.5px solid rgba(255,255,255,.5);color:#fff;}.btn-gw:hover{background:rgba(255,255,255,.26);}
+.btn-lg{padding:14px 30px;font-size:15px;}.btn-sm{padding:8px 16px;font-size:13px;}
+@media(max-width:720px){.nav-hideable{display:none}}
+
+/* CATS BAR */
+.catsbar{background:#fff;border-bottom:1px solid var(--border);position:sticky;top:70px;z-index:850;}
+.cats-in{max-width:1280px;margin:0 auto;padding:0 28px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+.cats-in::-webkit-scrollbar{display:none}
+.cpill{padding:13px 16px;font-family:'Outfit';font-size:13px;font-weight:600;color:var(--muted);white-space:nowrap;border-bottom:2.5px solid transparent;transition:.2s;background:none;}
+.cpill:hover{color:var(--orange);}.cpill.act{color:var(--orange);border-bottom-color:var(--orange);}
+
+/* HERO */
+.hero{background:var(--surface);padding:74px 0 70px;position:relative;overflow:hidden;}
+.hero::before{content:'';position:absolute;top:-160px;right:-120px;width:560px;height:560px;background:radial-gradient(circle,rgba(255,154,60,.22),transparent 70%);}
+.hero::after{content:'';position:absolute;bottom:-200px;left:10%;width:420px;height:420px;background:radial-gradient(circle,rgba(255,107,0,.1),transparent 70%);}
+.hero-in{max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1.05fr .95fr;gap:54px;align-items:center;position:relative;z-index:1;}
+.htag{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--border);border-radius:50px;padding:7px 16px;font-size:12px;font-weight:800;font-family:'Outfit';color:var(--orange);margin-bottom:22px;box-shadow:var(--sh);}
+.htag .dot{width:7px;height:7px;border-radius:50%;background:var(--green);animation:pulse 1.6s infinite;}
+@keyframes pulse{0%,100%{opacity:1;box-shadow:0 0 0 0 rgba(0,184,122,.4)}50%{opacity:.6;box-shadow:0 0 0 6px rgba(0,184,122,0)}}
+h1{font-family:'Outfit';font-size:clamp(34px,4.4vw,56px);font-weight:900;line-height:1.04;letter-spacing:-1.8px;}
+.hero-sub{margin-top:18px;font-size:17px;color:var(--sub);max-width:460px;}
+.hero-ctas{margin-top:30px;display:flex;gap:12px;flex-wrap:wrap;}
+.hero-stats{display:flex;gap:30px;margin-top:42px;padding-top:28px;border-top:1px solid var(--border);}
+.hs strong{display:block;font-family:'Outfit';font-size:27px;font-weight:900;}.hs small{font-size:12px;color:var(--muted);font-weight:700;}
+.hero-cards{display:flex;flex-direction:column;gap:14px;}
+.hcard{background:#fff;border:1px solid var(--border);border-radius:var(--r);padding:16px 18px;display:flex;align-items:center;gap:14px;box-shadow:var(--sh);transition:.25s;}
+.hcard:nth-child(2){transform:translateX(26px)}.hcard:hover{transform:translateY(-4px);box-shadow:var(--sh-md)}
+.hc-ic{width:48px;height:48px;border-radius:13px;display:flex;align-items:center;justify-content:center;font-size:24px;flex-shrink:0;}
+.hc-i strong{display:block;font-family:'Outfit';font-weight:700;font-size:14px;}.hc-i span{font-size:12px;color:var(--muted);}
+.hc-p{margin-left:auto;font-family:'Outfit';font-weight:900;font-size:16px;color:var(--orange);}
+@media(max-width:900px){.hero-in{grid-template-columns:1fr}.hero-cards{display:none}}
+
+/* TRUST */
+.trust-in{max-width:1280px;margin:0 auto;padding:22px 28px;display:flex;justify-content:space-around;flex-wrap:wrap;gap:18px;border-bottom:1px solid var(--border);}
+.ti{display:flex;align-items:center;gap:12px;}
+.ti .ic{width:40px;height:40px;border-radius:12px;background:var(--soft);color:var(--orange);display:flex;align-items:center;justify-content:center;font-size:17px;}
+.ti strong{display:block;font-size:13px;font-weight:800;font-family:'Outfit';}.ti small{font-size:11px;color:var(--muted);}
+
+/* SECTIONS */
+section{padding:62px 0;}
+.c{max-width:1280px;margin:0 auto;padding:0 28px;}
+.st{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:26px;gap:16px;flex-wrap:wrap;}
+.slabel{font-family:'Outfit';font-size:11px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:var(--orange);margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.st h2{font-family:'Outfit';font-size:clamp(22px,2.6vw,30px);font-weight:900;letter-spacing:-.8px;}
+.cd-badge{display:inline-flex;align-items:center;gap:8px;background:#FFF0F0;color:var(--red);font-family:'Outfit';font-weight:800;font-size:14px;padding:8px 16px;border-radius:50px;}
+.cd-badge .t{font-variant-numeric:tabular-nums;}
+
+/* PRODUCT GRID */
+.pg{display:grid;grid-template-columns:repeat(auto-fill,minmax(224px,1fr));gap:20px;}
+.pc{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);overflow:hidden;cursor:pointer;transition:all .26s;}
+.pc:hover{transform:translateY(-6px);border-color:transparent;box-shadow:var(--sh-md);}
+.pc .top{height:130px;display:flex;align-items:center;justify-content:center;font-size:50px;position:relative;}
+.pc .badge{position:absolute;top:11px;left:11px;font-size:10px;font-weight:800;font-family:'Outfit';padding:4px 11px;border-radius:50px;}
+.badge.hot{background:var(--grad);color:#fff;}.badge.new{background:var(--text);color:#fff;}.badge.flash{background:var(--red);color:#fff;}
+.pc .body{padding:15px 17px;}
+.pc .vend{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);font-weight:700;margin-bottom:7px;}
+.pc .vend i{color:var(--orange);font-size:12px;}
+.pc .tit{font-family:'Outfit';font-weight:700;font-size:14.5px;line-height:1.32;margin-bottom:7px;min-height:38px;}
+.pc .rt{font-size:11.5px;color:var(--muted);margin-bottom:13px;}.pc .rt .s{color:#FFAA00;}
+.pc .ft{display:flex;align-items:center;justify-content:space-between;border-top:1px solid var(--border);padding-top:13px;}
+.pc .price{font-family:'Outfit';font-size:19px;font-weight:900;}.pc .price small{display:block;font-size:11px;color:var(--muted);text-decoration:line-through;font-weight:600;}
+.pc .buy{width:38px;height:38px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.pc .buy:hover{transform:scale(1.12);box-shadow:0 6px 16px rgba(255,107,0,.4);}
+
+/* CATEGORY CARDS */
+.cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px;}
+.cc{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);padding:24px 14px;text-align:center;cursor:pointer;transition:.25s;}
+.cc:hover{border-color:var(--orange);transform:translateY(-4px);box-shadow:var(--sh-md);}
+.cc .ic{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;font-size:25px;margin:0 auto 12px;transition:.25s;}
+.cc:hover .ic{transform:scale(1.12)}
+.cc h4{font-family:'Outfit';font-size:13px;font-weight:700;}.cc small{font-size:11px;color:var(--muted);}
+
+/* HOW */
+.how{background:var(--surface);}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px;}
+.step{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);padding:30px 24px;text-align:center;transition:.2s;}
+.step:hover{box-shadow:var(--sh-md);}
+.sn{width:48px;height:48px;border-radius:50%;background:var(--grad);color:#fff;font-family:'Outfit';font-size:20px;font-weight:900;display:flex;align-items:center;justify-content:center;margin:0 auto 14px;}
+.step .e{font-size:28px;display:block;margin-bottom:10px;}
+.step h3{font-family:'Outfit';font-size:16px;font-weight:700;margin-bottom:7px;}.step p{font-size:13px;color:var(--sub);}
+
+/* SELL BANNER */
+.banner{background:var(--grad);padding:58px 0;position:relative;overflow:hidden;}
+.banner::before{content:'';position:absolute;top:-70px;right:7%;width:320px;height:320px;background:rgba(255,255,255,.08);border-radius:50%;}
+.ban-in{max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:1fr auto;gap:30px;align-items:center;position:relative;z-index:1;}
+.banner h2{font-family:'Outfit';font-size:clamp(24px,3vw,38px);font-weight:900;color:#fff;letter-spacing:-.8px;}
+.banner p{color:rgba(255,255,255,.9);margin-top:8px;font-size:15px;}
+.fee-badge{display:inline-flex;align-items:center;gap:9px;background:rgba(255,255,255,.2);border:1.5px solid rgba(255,255,255,.42);border-radius:50px;padding:8px 18px;font-size:14px;font-weight:800;color:#fff;margin-top:16px;font-family:'Outfit';}
+.fee-badge strong{font-size:19px;}
+.ban-btns{display:flex;gap:12px;flex-shrink:0;}
+@media(max-width:760px){.ban-in{grid-template-columns:1fr}}
+
+/* SELLERS */
+.sg{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:16px;}
+.sc{background:#fff;border:1.5px solid var(--border);border-radius:var(--r);padding:26px 18px;text-align:center;transition:.25s;}
+.sc:hover{transform:translateY(-4px);border-color:var(--orange);box-shadow:var(--sh-md);}
+.sav{width:62px;height:62px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Outfit';font-size:22px;font-weight:900;color:#fff;margin:0 auto 12px;}
+.sc h4{font-family:'Outfit';font-size:15px;font-weight:700;}.sc .cat{font-size:12px;color:var(--muted);margin-bottom:14px;}
+.smeta{display:flex;justify-content:center;gap:18px;border-top:1px solid var(--border);padding-top:13px;font-size:12px;}
+.smeta strong{display:block;font-family:'Outfit';font-weight:900;font-size:14px;}.smeta small{color:var(--muted);}
+
+/* FOOTER */
+footer{background:var(--text);color:#9a9ab0;padding:58px 0 0;}
+.fi{max-width:1280px;margin:0 auto;padding:0 28px;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
+.fb .logo{color:#fff;margin-bottom:14px;display:inline-block;}
+.fb p{font-size:13px;color:#7d7d96;line-height:1.8;max-width:270px;}
+.fsoc{display:flex;gap:8px;margin-top:18px;}
+.fsoc a{width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;color:#9a9ab0;transition:.2s;}
+.fsoc a:hover{background:var(--orange);color:#fff;border-color:var(--orange);}
+.fc h5{font-family:'Outfit';font-size:13px;font-weight:700;color:#fff;margin-bottom:14px;}
+.fc a{display:block;font-size:13px;margin-bottom:9px;color:#7d7d96;transition:.2s;}.fc a:hover{color:var(--orange2);}
+.fbot{max-width:1280px;margin:38px auto 0;padding:18px 28px;border-top:1px solid rgba(255,255,255,.07);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:#666;flex-wrap:wrap;gap:12px;}
+.pts span{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:6px;padding:3px 10px;font-size:11px;font-weight:700;margin-left:6px;}
+@media(max-width:760px){.fi{grid-template-columns:1fr 1fr}}
+
+/* MODAL */
+.ov{position:fixed;inset:0;background:rgba(22,22,42,.6);backdrop-filter:blur(7px);z-index:2000;display:none;align-items:center;justify-content:center;padding:20px;overflow-y:auto;}
+.ov.open{display:flex;}
+.modal{background:#fff;border-radius:22px;width:100%;max-width:460px;position:relative;animation:pop .3s ease;box-shadow:0 30px 90px rgba(0,0,0,.22);margin:auto;}
+.modal.wide{max-width:600px;}
+@keyframes pop{from{opacity:0;transform:scale(.94)}to{opacity:1;transform:scale(1)}}
+.mx{position:absolute;top:15px;right:15px;width:32px;height:32px;border-radius:50%;background:var(--surface);color:var(--muted);display:flex;align-items:center;justify-content:center;z-index:3;transition:.2s;}
+.mx:hover{background:var(--border);color:var(--text);}
+.mbody{padding:36px 34px;}
+.modal h3{font-family:'Outfit';font-size:23px;font-weight:900;margin-bottom:4px;}
+.modal .ms{font-size:14px;color:var(--sub);margin-bottom:22px;}
+.mtabs{display:flex;background:var(--surface);border-radius:50px;padding:4px;margin-bottom:22px;}
+.mt{flex:1;padding:10px;font-family:'Outfit';font-weight:700;font-size:13px;color:var(--muted);border-radius:50px;transition:.2s;background:none;}
+.mt.act{background:#fff;color:var(--orange);box-shadow:0 2px 8px rgba(0,0,0,.08);}
+.fg{margin-bottom:14px;}.fg label{display:block;font-size:11px;font-weight:800;color:var(--sub);letter-spacing:.4px;margin-bottom:6px;font-family:'Outfit';}
+.fg input,.fg select{width:100%;background:var(--surface);border:1.5px solid var(--border);border-radius:11px;padding:12px 14px;font-size:14px;transition:.2s;}
+.fg input:focus,.fg select:focus{border-color:var(--orange);box-shadow:0 0 0 4px rgba(255,107,0,.08);background:#fff;}
+.bfull{width:100%;}
+.mft{text-align:center;margin-top:14px;font-size:13px;color:var(--muted);}.mft a{color:var(--orange);font-weight:700;}
+.fee-box{background:linear-gradient(135deg,#FFF5EE,#FFE7D2);border:1.5px solid rgba(255,107,0,.22);border-radius:14px;padding:18px;text-align:center;margin-bottom:18px;}
+.fee-num{font-family:'Outfit';font-size:42px;font-weight:900;line-height:1;}
+.fee-l{font-size:14px;color:var(--sub);margin-top:4px;}.fee-d{font-size:12px;color:var(--muted);margin-top:8px;}
+.checks{display:flex;flex-direction:column;gap:9px;margin-bottom:18px;}
+.chk{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--sub);}.chk i{color:var(--green);}
+
+/* PDP */
+.pdp-top{height:170px;display:flex;align-items:center;justify-content:center;font-size:68px;border-radius:22px 22px 0 0;}
+.pdp-b{padding:26px 32px;}
+.pdp-b .vend{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--sub);font-weight:700;margin-bottom:8px;}.pdp-b .vend i{color:var(--orange);}
+.pdp-b h2{font-family:'Outfit';font-size:23px;font-weight:900;letter-spacing:-.5px;margin-bottom:8px;}
+.pdp-meta{display:flex;gap:16px;font-size:13px;color:var(--muted);margin-bottom:16px;flex-wrap:wrap;}.pdp-meta .s{color:#FFAA00;}
+.pdp-desc{font-size:14px;color:var(--sub);margin-bottom:20px;}
+.pdp-feat{display:flex;flex-direction:column;gap:10px;margin-bottom:22px;}
+.pdp-feat div{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--sub);}.pdp-feat i{color:var(--green);}
+.pdp-buy{display:flex;align-items:center;justify-content:space-between;gap:16px;border-top:1px solid var(--border);padding-top:20px;flex-wrap:wrap;}
+.pdp-price{font-family:'Outfit';font-size:30px;font-weight:900;}.pdp-price small{font-size:13px;color:var(--muted);text-decoration:line-through;font-weight:600;}
+
+/* CHECKOUT */
+.coln{display:flex;justify-content:space-between;font-size:14px;padding:9px 0;color:var(--sub);}
+.coln.tot{border-top:1px solid var(--border);margin-top:6px;padding-top:14px;font-family:'Outfit';font-weight:900;font-size:18px;color:var(--text);}
+.cofee{font-size:12px;color:var(--muted);background:var(--surface);border-radius:11px;padding:11px 14px;margin:14px 0;}
+.pixqr{width:150px;height:150px;margin:14px auto;border-radius:14px;background:repeating-conic-gradient(#16162A 0 25%,#fff 0 50%) 0/22px 22px;border:8px solid #fff;box-shadow:0 0 0 1.5px var(--border);}
+.deliver{background:linear-gradient(135deg,#E8FAF3,#d4f3e8);border:1.5px solid rgba(0,184,122,.3);border-radius:14px;padding:22px;text-align:center;}
+.deliver i.big{font-size:38px;color:var(--green);margin-bottom:10px;}
+.dlink{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1.5px solid var(--green);color:var(--green);font-family:'Outfit';font-weight:700;padding:11px 18px;border-radius:11px;margin-top:14px;font-size:14px;cursor:pointer;}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;right:24px;z-index:9999;background:var(--text);color:#fff;border-radius:13px;padding:14px 20px;display:flex;align-items:center;gap:12px;font-weight:700;font-size:14px;box-shadow:0 16px 50px rgba(0,0,0,.3);transform:translateY(160%);transition:transform .4s cubic-bezier(.34,1.56,.64,1);}
+.toast.on{transform:translateY(0);}.toast .ti{font-size:18px;}
+.no-res{text-align:center;padding:40px;color:var(--muted);grid-column:1/-1;}
+</style>
+</head>
+<body>
+
+<div class="topbar">🚀 Marketplace 100% digital — crie sua loja grátis e pague só <span class="g">3% por venda</span>. Sem mensalidade.</div>
+
+<nav>
+  <div class="nav-wrap">
+    <div class="logo">Nex<span class="g">Zone</span></div>
+    <div class="sb">
+      <i class="fas fa-search s"></i>
+      <input id="search" placeholder="Buscar prompts, templates, planilhas, automações…">
+    </div>
+    <div class="nav-end">
+      <button class="btn btn-ghost btn-sm nav-hideable" data-act="auth" data-tab="login"><i class="fas fa-user"></i> Entrar</button>
+      <button class="btn btn-pri btn-sm" data-act="auth" data-tab="register">Cadastrar</button>
+      <button class="btn btn-dark btn-sm" data-act="sell"><i class="fas fa-plus"></i> Vender</button>
+    </div>
+  </div>
+</nav>
+
+<div class="catsbar"><div class="cats-in" id="catsbar"></div></div>
+
+<section class="hero">
+  <div class="hero-in">
+    <div>
+      <div class="htag"><span class="dot"></span> Entrega imediata e pagamento seguro</div>
+      <h1>O marketplace dos <span class="g">produtos digitais</span> do Brasil.</h1>
+      <p class="hero-sub">Prompts, templates, planilhas, automações e mais — de criadores verificados, com entrega na hora e garantia. Compre sem medo, venda sem mensalidade.</p>
+      <div class="hero-ctas">
+        <button class="btn btn-pri btn-lg" data-act="scroll" data-target="explorar"><i class="fas fa-bolt"></i> Explorar produtos</button>
+        <button class="btn btn-ghost btn-lg" data-act="sell"><i class="fas fa-store"></i> Criar minha loja</button>
+      </div>
+      <div class="hero-stats">
+        <div class="hs"><strong class="g">2.4k+</strong><small>Produtos</small></div>
+        <div class="hs"><strong class="g">380+</strong><small>Vendedores</small></div>
+        <div class="hs"><strong class="g">98%</strong><small>Satisfação</small></div>
+        <div class="hs"><strong class="g">24h</strong><small>Suporte</small></div>
+      </div>
+    </div>
+    <div class="hero-cards" id="herocards"></div>
+  </div>
+</section>
+
+<div class="trust-in">
+  <div class="ti"><div class="ic"><i class="fas fa-shield-halved"></i></div><div><strong>Pagamento Seguro</strong><small>Pix, Cartão e split</small></div></div>
+  <div class="ti"><div class="ic"><i class="fas fa-bolt"></i></div><div><strong>Entrega Imediata</strong><small>Na hora do pagamento</small></div></div>
+  <div class="ti"><div class="ic"><i class="fas fa-circle-check"></i></div><div><strong>Vendedores Verificados</strong><small>Curadoria real</small></div></div>
+  <div class="ti"><div class="ic"><i class="fas fa-rotate-left"></i></div><div><strong>Garantia 7 dias</strong><small>Reembolso protegido</small></div></div>
+</div>
+
+<section>
+  <div class="c">
+    <div class="st">
+      <div><div class="slabel"><i class="fas fa-bolt"></i> Oferta Relâmpago</div><h2>Acaba rápido</h2></div>
+      <div class="cd-badge"><i class="fas fa-clock"></i> <span class="t" id="cd">00:00:00</span></div>
+    </div>
+    <div class="pg" id="flashGrid"></div>
+  </div>
+</section>
+
+<section style="background:var(--surface);">
+  <div class="c">
+    <div class="st"><div><div class="slabel"><i class="fas fa-fire"></i> Em alta</div><h2>Mais Vendidos</h2></div></div>
+    <div class="pg" id="topGrid"></div>
+  </div>
+</section>
+
+<section>
+  <div class="c">
+    <div class="st"><div><div class="slabel"><i class="fas fa-th-large"></i> Navegar</div><h2>Categorias</h2></div></div>
+    <div class="cg" id="catGrid"></div>
+  </div>
+</section>
+
+<section id="explorar" style="background:var(--surface);">
+  <div class="c">
+    <div class="st"><div><div class="slabel"><i class="fas fa-compass"></i> Explorar tudo</div><h2 id="exploreTitle">Todos os produtos</h2></div></div>
+    <div class="pg" id="exploreGrid"></div>
+  </div>
+</section>
+
+<section class="how">
+  <div class="c">
+    <div class="st"><div><div class="slabel"><i class="fas fa-route"></i> Simples assim</div><h2>Como funciona</h2></div></div>
+    <div class="steps">
+      <div class="step"><div class="sn">1</div><span class="e">🔎</span><h3>Encontre</h3><p>Busque por categoria ou criador verificado.</p></div>
+      <div class="step"><div class="sn">2</div><span class="e">💳</span><h3>Pague com segurança</h3><p>Pix ou cartão. O valor fica protegido pelo split.</p></div>
+      <div class="step"><div class="sn">3</div><span class="e">⚡</span><h3>Receba na hora</h3><p>Acesso e download liberados automaticamente.</p></div>
+      <div class="step"><div class="sn">4</div><span class="e">⭐</span><h3>Avalie</h3><p>Sua nota fortalece os bons vendedores.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="banner">
+  <div class="ban-in">
+    <div>
+      <h2>Venda seus produtos digitais sem mensalidade.</h2>
+      <p>Crie sua loja grátis. Você só paga quando vender — simples assim.</p>
+      <div class="fee-badge"><i class="fas fa-percent"></i> Taxa única de <strong>3%</strong> por venda. Zero mensalidade.</div>
+    </div>
+    <div class="ban-btns">
+      <button class="btn btn-white btn-lg" data-act="sell"><i class="fas fa-rocket"></i> Criar Loja Grátis</button>
+    </div>
+  </div>
+</div>
+
+<section>
+  <div class="c">
+    <div class="st"><div><div class="slabel"><i class="fas fa-trophy"></i> Comunidade</div><h2>Top Vendedores</h2></div></div>
+    <div class="sg" id="sellGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="fi">
+    <div class="fb">
+      <div class="logo">Nex<span class="g">Zone</span></div>
+      <p>O marketplace de produtos digitais do Brasil. Compre com segurança, venda sem mensalidade — apenas 3% por venda.</p>
+      <div class="fsoc"><a data-act="soon"><i class="fab fa-instagram"></i></a><a data-act="soon"><i class="fab fa-whatsapp"></i></a><a data-act="soon"><i class="fab fa-tiktok"></i></a><a data-act="soon"><i class="fab fa-telegram"></i></a></div>
+    </div>
+    <div class="fc"><h5>MARKETPLACE</h5><a data-act="soon">Explorar Produtos</a><a data-act="soon">IA & Ferramentas</a><a data-act="soon">Templates</a><a data-act="soon">Design</a><a data-act="soon">Automações</a></div>
+    <div class="fc"><h5>VENDEDORES</h5><a data-act="sell">Criar Loja Grátis</a><a data-act="soon">Taxa de 3%</a><a data-act="soon">Painel do Vendedor</a><a data-act="soon">Afiliados</a></div>
+    <div class="fc"><h5>SUPORTE</h5><a data-act="soon">Central de Ajuda</a><a data-act="soon">Disputas</a><a data-act="soon">Termos de Uso</a><a data-act="soon">Privacidade (LGPD)</a></div>
+  </div>
+  <div class="fbot"><span>© 2026 NexZone. Todos os direitos reservados.</span><div class="pts">Pagamentos:<span>PIX</span><span>CARTÃO</span><span>BOLETO</span></div></div>
+</footer>
+
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+<div class="toast" id="toast"><span class="ti" id="toastI">✅</span><span id="toastT"></span></div>
+
+<script>
+const CATS=[
+  {n:'IA & Ferramentas',i:'🤖',bg:'#F0FFF5',cl:'#059669',count:'420+'},
+  {n:'Templates & Planilhas',i:'📊',bg:'#EEF3FF',cl:'#2563EB',count:'610+'},
+  {n:'Design',i:'🎨',bg:'#FFF0F8',cl:'#DB2777',count:'530+'},
+  {n:'Automações',i:'⚡',bg:'#FFFBEB',cl:'#D97706',count:'180+'},
+  {n:'Marketing Digital',i:'📈',bg:'#FFF0E6',cl:'#FF6B00',count:'340+'},
+  {n:'Cursos & Ebooks',i:'📚',bg:'#F0FAFF',cl:'#0284C7',count:'290+'},
+];
+const PRODS=[
+  {id:1,t:'Pack 500 Prompts de IA para Marketing',v:'AchadosIA',cat:'IA & Ferramentas',price:19.90,promo:null,r:4.9,s:1240,e:'🤖',bg:'#F0FFF5',ver:true,deliv:'PDF + planilha editável',desc:'500 prompts testados para copy, anúncios, e-mail e social. Pronto para colar e usar.'},
+  {id:2,t:'Planilha de Gestão Financeira Automatizada',v:'PlanilhaPro',cat:'Templates & Planilhas',price:29.90,promo:null,r:5.0,s:880,e:'📊',bg:'#EEF3FF',ver:true,deliv:'Google Sheets + Excel',desc:'Fluxo de caixa, DRE e metas com gráficos automáticos.'},
+  {id:3,t:'Kit 50 Templates de Stories (Canva)',v:'DesignFlux',cat:'Design',price:24.90,promo:14.90,r:4.8,s:2100,e:'🎨',bg:'#FFF0F8',ver:true,flash:true,deliv:'Link de cópia no Canva',desc:'50 templates editáveis para stories de vendas. Cópia direta no Canva.'},
+  {id:4,t:'Automação de Atendimento WhatsApp (n8n)',v:'AutoFlow',cat:'Automações',price:39.90,promo:null,r:4.9,s:340,e:'⚡',bg:'#FFFBEB',ver:false,deliv:'Arquivo .json (workflow)',desc:'Fluxo pronto de qualificação e resposta automática. Importe e ative.'},
+  {id:5,t:'Pack 30 Presets Lightroom Mobile',v:'FotoEdit',cat:'Design',price:9.90,promo:null,r:4.7,s:1560,e:'📸',bg:'#F5F3FF',ver:false,deliv:'Arquivos .dng + guia',desc:'Presets profissionais para um feed coeso. Instalação guiada.'},
+  {id:6,t:'Ebook: Tráfego Pago do Zero',v:'MarketingHub',cat:'Cursos & Ebooks',price:24.90,promo:null,r:4.8,s:720,e:'📚',bg:'#F0FAFF',ver:true,deliv:'Ebook PDF (120 págs)',desc:'Do pixel à escala: o passo a passo para campanhas que vendem.'},
+  {id:7,t:'Pack 100 Templates de Carrossel',v:'DesignFlux',cat:'Design',price:17.90,promo:null,r:4.9,s:430,e:'🎯',bg:'#FFF0E6',ver:true,deliv:'Link de cópia no Canva',desc:'100 carrosséis editáveis para engajar e converter.'},
+  {id:8,t:'Notion Dashboard de Produtividade',v:'NotionLab',cat:'Templates & Planilhas',price:12.90,promo:null,r:4.6,s:290,e:'💻',bg:'#F0FFFC',ver:false,deliv:'Template Notion (duplicar)',desc:'Sistema completo de metas, tarefas e hábitos no Notion.'},
+];
+const SELLERS=[
+  {i:'AI',n:'AchadosIA',c:'IA & Ferramentas',s:'4.2k',r:'5.0'},
+  {i:'DF',n:'DesignFlux',c:'Design & Canva',s:'3.8k',r:'4.9'},
+  {i:'PP',n:'PlanilhaPro',c:'Planilhas',s:'2.1k',r:'5.0'},
+  {i:'MH',n:'MarketingHub',c:'Cursos & Ebooks',s:'1.6k',r:'4.8'},
+  {i:'AF',n:'AutoFlow',c:'Automações',s:'1.1k',r:'4.9'},
+];
+const FLASH_END=Date.now()+1000*60*128;
+
+const $=id=>document.getElementById(id);
+const money=v=>'R$ '+Number(v).toFixed(2).replace('.',',');
+let curCat='Tudo', curSearch='';
+
+function card(p){
+  const pr=p.promo||p.price;
+  const badge=p.flash?'<span class="badge flash">⚡ RELÂMPAGO</span>':(p.s>1000?'<span class="badge hot">🔥 HOT</span>':(p.s<400?'<span class="badge new">✨ NOVO</span>':''));
+  return `<div class="pc" data-act="pdp" data-id="${p.id}">
+    <div class="top" style="background:${p.bg}">${p.e}${badge}</div>
+    <div class="body">
+      <div class="vend">${p.v} ${p.ver?'<i class="fas fa-circle-check"></i>':''}</div>
+      <div class="tit">${p.t}</div>
+      <div class="rt"><span class="s">★</span> ${p.r} · ${p.s.toLocaleString('pt-BR')} vendas</div>
+      <div class="ft">
+        <div class="price">${money(pr)}${p.promo?`<small>${money(p.price)}</small>`:''}</div>
+        <button class="buy" data-act="pdp" data-id="${p.id}"><i class="fas fa-arrow-right"></i></button>
+      </div>
+    </div></div>`;
+}
+function renderCatsbar(){
+  const all=['Tudo',...CATS.map(c=>c.n)];
+  $('catsbar').innerHTML=all.map(c=>`<button class="cpill ${c===curCat?'act':''}" data-act="cat" data-cat="${c}">${c}</button>`).join('');
+}
+function renderHome(){
+  $('herocards').innerHTML=PRODS.slice(0,3).map(p=>`<div class="hcard"><div class="hc-ic" style="background:${p.bg}">${p.e}</div><div class="hc-i"><strong>${p.t.slice(0,26)}…</strong><span>${p.v} · ★ ${p.r}</span></div><div class="hc-p">${money(p.promo||p.price)}</div></div>`).join('');
+  $('flashGrid').innerHTML=PRODS.filter(p=>p.flash).map(card).join('');
+  $('topGrid').innerHTML=[...PRODS].sort((a,b)=>b.s-a.s).slice(0,4).map(card).join('');
+  $('catGrid').innerHTML=CATS.map(c=>`<div class="cc" data-act="cat" data-cat="${c.n}"><div class="ic" style="background:${c.bg};color:${c.cl}">${c.i}</div><h4>${c.n}</h4><small>${c.count} produtos</small></div>`).join('');
+  $('sellGrid').innerHTML=SELLERS.map(s=>`<div class="sc"><div class="sav">${s.i}</div><h4>${s.n}</h4><div class="cat">${s.c}</div><div class="smeta"><div><strong>${s.s}</strong><small>Vendas</small></div><div><strong>⭐${s.r}</strong><small>Nota</small></div><div><strong>✓</strong><small>Verif.</small></div></div></div>`).join('');
+  renderExplore();
+}
+function renderExplore(){
+  let list=PRODS.filter(p=>(curCat==='Tudo'||p.cat===curCat)&&(p.t.toLowerCase().includes(curSearch)||p.v.toLowerCase().includes(curSearch)||p.cat.toLowerCase().includes(curSearch)));
+  $('exploreTitle').textContent=curCat==='Tudo'?'Todos os produtos':curCat;
+  $('exploreGrid').innerHTML=list.length?list.map(card).join(''):'<div class="no-res"><i class="fas fa-magnifying-glass" style="font-size:30px;display:block;margin-bottom:10px"></i>Nenhum produto encontrado.</div>';
+}
+function setCat(c){curCat=c;renderCatsbar();renderExplore();document.getElementById('explorar').scrollIntoView({behavior:'smooth'});}
+
+/* MODALS */
+function openOv(html,wide){$('modal').className='modal'+(wide?' wide':'');$('modal').innerHTML=html;$('ov').classList.add('open');}
+function closeOv(){$('ov').classList.remove('open');}
+function authModal(tab){
+  openOv(`<button class="mx" data-act="close"><i class="fas fa-times"></i></button><div class="mbody">
+    <h3>Bem-vindo! 👋</h3><div class="ms">Acesse ou crie sua conta grátis.</div>
+    <div class="mtabs"><button class="mt ${tab!=='register'?'act':''}" data-act="authtab" data-tab="login">Entrar</button><button class="mt ${tab==='register'?'act':''}" data-act="authtab" data-tab="register">Cadastrar</button></div>
+    ${tab==='register'?`
+      <div class="fg"><label>NOME</label><input placeholder="Seu nome"></div>
+      <div class="fg"><label>E-MAIL</label><input type="email" placeholder="seu@email.com"></div>
+      <div class="fg"><label>SENHA</label><input type="password" placeholder="Mínimo 8 caracteres"></div>
+      <div class="fg"><label>TIPO DE CONTA</label><select><option>Comprador</option><option>Vendedor</option><option>Ambos</option></select></div>
+      <button class="btn btn-pri bfull" data-act="toast" data-msg="Conta criada! 🎉">Criar Conta Grátis</button>`:`
+      <div class="fg"><label>E-MAIL</label><input type="email" placeholder="seu@email.com"></div>
+      <div class="fg"><label>SENHA</label><input type="password" placeholder="••••••••"></div>
+      <button class="btn btn-pri bfull" data-act="toast" data-msg="Bem-vindo de volta! ✓">Entrar</button>`}
+  </div>`);
+}
+function sellModal(){
+  openOv(`<button class="mx" data-act="close"><i class="fas fa-times"></i></button><div class="mbody">
+    <h3>Criar Loja Grátis 🚀</h3><div class="ms">Sem mensalidade. Sem taxa escondida.</div>
+    <div class="fee-box"><div class="fee-num g">3%</div><div class="fee-l">Taxa única por venda realizada</div><div class="fee-d">Você não paga nada para criar ou manter sua loja. Só cobramos 3% quando uma venda acontece.</div></div>
+    <div class="checks">
+      <div class="chk"><i class="fas fa-check-circle"></i> Loja grátis para sempre</div>
+      <div class="chk"><i class="fas fa-check-circle"></i> Produtos ilimitados</div>
+      <div class="chk"><i class="fas fa-check-circle"></i> Receba por Pix ou cartão (split automático)</div>
+      <div class="chk"><i class="fas fa-check-circle"></i> Painel de vendas + suporte</div>
+    </div>
+    <div class="fg"><label>NOME DA LOJA</label><input placeholder="Ex: DesignFlux, AchadosIA…"></div>
+    <div class="fg"><label>CATEGORIA PRINCIPAL</label><select>${CATS.map(c=>`<option>${c.n}</option>`).join('')}</select></div>
+    <div class="fg"><label>WHATSAPP</label><input placeholder="(00) 00000-0000"></div>
+    <button class="btn btn-pri bfull" data-act="toast" data-msg="Loja criada! Bem-vindo à NexZone 🎉">Criar Minha Loja Agora — Grátis</button>
+  </div>`);
+}
+function pdpModal(id){
+  const p=PRODS.find(x=>x.id===id);const pr=p.promo||p.price;
+  openOv(`<button class="mx" data-act="close"><i class="fas fa-times"></i></button>
+    <div class="pdp-top" style="background:${p.bg}">${p.e}</div>
+    <div class="pdp-b">
+      <div class="vend">${p.v} ${p.ver?'<i class="fas fa-circle-check"></i> Verificado':''}</div>
+      <h2>${p.t}</h2>
+      <div class="pdp-meta"><span><span class="s">★</span> ${p.r}</span><span>${p.s.toLocaleString('pt-BR')} vendas</span><span>${p.cat}</span></div>
+      <div class="pdp-desc">${p.desc}</div>
+      <div class="pdp-feat">
+        <div><i class="fas fa-bolt"></i> Entrega imediata após o pagamento</div>
+        <div><i class="fas fa-box-open"></i> Você recebe: ${p.deliv}</div>
+        <div><i class="fas fa-shield-halved"></i> Garantia de 7 dias</div>
+      </div>
+      <div class="pdp-buy"><div class="pdp-price">${money(pr)} ${p.promo?`<small>${money(p.price)}</small>`:''}</div>
+        <button class="btn btn-pri btn-lg" data-act="checkout" data-id="${p.id}"><i class="fas fa-bolt"></i> Comprar agora</button></div>
+    </div>`,true);
+}
+function checkoutModal(id){
+  const p=PRODS.find(x=>x.id===id);const total=p.promo||p.price;const fee=(total*0.03);const net=total-fee;
+  openOv(`<button class="mx" data-act="close"><i class="fas fa-times"></i></button><div class="mbody">
+    <h3>Checkout</h3><div class="ms">Pagamento seguro com split.</div>
+    <div style="display:flex;gap:12px;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--border)"><div style="width:46px;height:46px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:24px;background:${p.bg}">${p.e}</div><div><strong style="font-family:Outfit">${p.t}</strong><div style="font-size:12px;color:var(--muted)">${p.v}</div></div></div>
+    <div class="coln"><span>Subtotal</span><span>${money(total)}</span></div>
+    <div class="coln tot"><span>Total</span><span>${money(total)}</span></div>
+    <div class="cofee"><i class="fas fa-circle-info"></i> Split automático: <strong>${money(net)}</strong> para o vendedor · <strong>${money(fee)}</strong> (3%) para a NexZone.</div>
+    <div style="text-align:center"><div class="slabel" style="justify-content:center"><i class="fab fa-pix"></i> Pagar com Pix</div><div class="pixqr"></div><div style="font-size:12px;color:var(--muted)">QR simulado. No app real o gateway confirma e libera a entrega.</div></div>
+    <button class="btn btn-pri bfull" style="margin-top:16px" data-act="pay" data-id="${p.id}"><i class="fas fa-check"></i> Simular pagamento confirmado</button>
+  </div>`);
+}
+function payDone(id){
+  const p=PRODS.find(x=>x.id===id);
+  openOv(`<button class="mx" data-act="close"><i class="fas fa-times"></i></button><div class="mbody" style="text-align:center">
+    <div class="deliver"><i class="fas fa-circle-check big"></i><h3>Pagamento confirmado!</h3><div style="font-size:13px;color:var(--sub);margin-top:6px">Entrega liberada na hora.</div>
+    <div class="dlink" data-act="toast" data-msg="Conteúdo liberado: ${p.deliv}"><i class="fas fa-download"></i> Acessar: ${p.deliv}</div></div>
+    <button class="btn btn-ghost" style="margin-top:16px" data-act="close">Fechar</button>
+  </div>`);
+}
+function toast(msg,ico='✅'){clearTimeout(window._tt);$('toastT').textContent=msg;$('toastI').textContent=ico;$('toast').classList.add('on');closeOv();window._tt=setTimeout(()=>$('toast').classList.remove('on'),3200);}
+
+/* EVENT DELEGATION (robusto contra escopo do sandbox) */
+document.addEventListener('click',e=>{
+  const el=e.target.closest('[data-act]');if(!el)return;
+  const a=el.dataset.act,id=+el.dataset.id;
+  if(a==='auth')authModal(el.dataset.tab);
+  else if(a==='authtab')authModal(el.dataset.tab);
+  else if(a==='sell')sellModal();
+  else if(a==='pdp')pdpModal(id);
+  else if(a==='checkout')checkoutModal(id);
+  else if(a==='pay')payDone(id);
+  else if(a==='cat')setCat(el.dataset.cat);
+  else if(a==='close')closeOv();
+  else if(a==='scroll')document.getElementById(el.dataset.target).scrollIntoView({behavior:'smooth'});
+  else if(a==='toast')toast(el.dataset.msg||'Feito!');
+  else if(a==='soon')toast('Em breve neste protótipo 🙂','🔧');
+});
+$('search').addEventListener('input',e=>{curSearch=e.target.value.toLowerCase().trim();renderExplore();});
+$('ov').addEventListener('click',e=>{if(e.target===$('ov'))closeOv();});
+setInterval(()=>{const d=Math.max(0,FLASH_END-Date.now());const h=Math.floor(d/3.6e6),m=Math.floor(d%3.6e6/6e4),s=Math.floor(d%6e4/1e3);$('cd').textContent=`${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;},1000);
+
+renderCatsbar();renderHome();
+</script>
+</body>
+</html>
